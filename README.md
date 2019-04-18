@@ -7,27 +7,25 @@
 - Run 'npm start' for every service and the proxy.
 - In a browser navigate to localhost:3000
 
-##Crud API
-\*Create:
+Crud API
+Create:
 
-\*Post: '/books/:id (creates a book at ":id")
+Post: '/books/:id (creates a book at ":id")
 
-\*Read:
+Read:
 
-\*Get: '/books/:id/authors/title' (gets all titles associated with the id)
+Get: '/books/:id/authors/title' (gets all titles associated with the id)
 
-\*Get '/books/:id/authors/status' (gets all statuses associated with the id)
+Get '/books/:id/authors/status' (gets all statuses associated with the id)
 
-\*Get '/books/:id/authors/:id' (gets all id associated with the id)
+Get '/books/:id/authors/:id' (gets all id associated with the id)
 
-\*Get '/books/:id/authors/:id/titles' (gets all titles associated with the id)
+Get '/books/:id/authors/:id/titles' (gets all titles associated with the id)
 
-\*Update:
+Update:
 
-\*Put '/books/:id' (modifies data at book ":id")
+Put '/books/:id' (modifies data at book at the id)
 
-\*Delete
+Delete
 
-\*Delete '/books/:id' (deletes the book at the id)
-
-Note: it does not seem
+Delete '/books/:id' (deletes the book at the id)
