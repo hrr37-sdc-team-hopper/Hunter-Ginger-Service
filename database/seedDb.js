@@ -6,6 +6,8 @@ const coverPicture = "http://d37pd3xfja253q.cloudfront.net/books/sample-image-";
 const profilePic = "http://d37pd3xfja253q.cloudfront.net/authors/sample-image-";
 const status = "Want to Read";
 
+//reffer to https://www.npmjs.com/package/csv-write-stream
+
 var createBook = function() {
   writer.pipe(fs.createWriteStream("author.csv"));
   for (var i = 0; i < 10000000; i++) {
