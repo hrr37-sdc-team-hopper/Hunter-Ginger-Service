@@ -52,6 +52,7 @@
     "webpack-dev-server": "^3.2.1"
   },
   "dependencies": {
+    "csv-write-stream": "^2.0.0",
     "faker": "^4.1.0",
     "file-system": "^2.2.2",
     "jquery": "^3.3.1",
