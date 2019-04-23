@@ -20,16 +20,6 @@ var createBook = function() {
   return bookData;
 };
 
-var createAuthors = function() {
-  var authorData = {
-    name: faker.name.findName(),
-    details: faker.lorem.paragraphs(),
-    profile_pic: `${profilePic + faker.random.number({ min: 1, max: 3 })}.jpg`,
-    followers: faker.random.number({ min: 0, max: 20000 })
-  };
-  return authorData;
-};
-
 var makeBooks = function() {
   var stream = fs.createWriteStream(`./data/books.csv`);
   writer.pipe(stream);
@@ -39,6 +29,7 @@ var makeBooks = function() {
       var books = createBook();
       writer.write(books);
     }
+    writer.end();
     console.timeEnd("timing seed");
   };
   generateBooks();
