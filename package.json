@@ -52,9 +52,12 @@
     "webpack-dev-server": "^3.2.1"
   },
   "dependencies": {
+    "csv-write-stream": "^2.0.0",
     "faker": "^4.1.0",
+    "file-system": "^2.2.2",
     "jquery": "^3.3.1",
     "mysql": "^2.16.0",
+    "pg": "^7.10.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
