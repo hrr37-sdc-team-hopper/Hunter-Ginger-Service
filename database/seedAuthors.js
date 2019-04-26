@@ -3,7 +3,7 @@ const fs = require("file-system");
 const profilePic = "http://d37pd3xfja253q.cloudfront.net/authors/sample-image-";
 const stream = fs.createWriteStream(`./data/authors.csv`);
 
-//reffer to https://nodejs.org/api/stream.html#stream_event_drain
+//refer to https://nodejs.org/api/stream.html#stream_event_drain
 
 stream.write("name,details,profile_pic,followers\n");
 
