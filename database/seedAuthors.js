@@ -1,37 +1,38 @@
 const faker = require("faker");
 const fs = require("file-system");
-const csvWriter = require("csv-write-stream");
-const writer = csvWriter();
-const coverPicture = "http://d37pd3xfja253q.cloudfront.net/books/sample-image-";
 const profilePic = "http://d37pd3xfja253q.cloudfront.net/authors/sample-image-";
-const status = "Want to Read";
+const stream = fs.createWriteStream(`./data/authors.csv`);
 
-//reffer to https://www.npmjs.com/package/csv-write-stream
+//reffer to https://nodejs.org/api/stream.html#stream_event_drain
 
-var createAuthors = function() {
-  var authorData = {
-    id: faker.random.number({ min: 0, max: 10000000 }),
-    name: faker.name.findName(),
-    details: faker.lorem.paragraphs(),
-    profile_pic: `${profilePic + faker.random.number({ min: 1, max: 3 })}.jpg`,
-    followers: faker.random.number({ min: 0, max: 20000 })
-  };
-  return authorData;
-};
+stream.write("name,details,profile_pic,followers\n");
 
-var makeAuthors = function() {
-  var stream = fs.createWriteStream(`./data/authors.csv`);
-  writer.pipe(stream);
-  var generateAuthors = function() {
-    console.log("timing seed");
-    for (var i = 0; i < 10000000; i++) {
-      var author = createAuthors();
-      writer.write(author);
+function makeAuthors(writer, callback) {
+  console.time("timing seed");
+  var i = 10000000;
+  (function write() {
+    var ok = true;
+    while (i > 0 && ok) {
+      i -= 1;
+      var name = faker.name.findName();
+      var details = faker.lorem.paragraphs();
+      var profile_pic = `${profilePic +
+        faker.random.number({ min: 1, max: 3 })}.jpg`;
+      var followers = faker.random.number({ min: 0, max: 20000 });
+      var data = `${name},"${details}",${profile_pic},${followers}\n`;
+      if (i === 0) {
+        writer.write(data, callback);
+      } else {
+        ok = writer.write(data);
+      }
     }
-    writer.end();
-    console.timeEnd("timing seed");
-  };
-  generateAuthors();
-};
+    if (i > 0) {
+      writer.once("drain", write);
+    }
+  })();
+}
 
-makeAuthors();
+makeAuthors(stream, () => {
+  stream.end();
+  console.timeEnd("timing seed");
+});

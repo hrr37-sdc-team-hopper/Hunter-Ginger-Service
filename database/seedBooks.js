@@ -25,7 +25,7 @@ var makeBooks = function() {
   writer.pipe(stream);
   var generateBooks = function() {
     console.time("timing seed");
-    for (var i = 0; i < 10000000; i++) {
+    for (var i = 0; i < 10; i++) {
       var books = createBook();
       writer.write(books);
     }
