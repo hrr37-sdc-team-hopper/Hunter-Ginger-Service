@@ -15,22 +15,22 @@ app.use("/books/:id", express.static(path.join(__dirname, "../public")));
 
 app.get("/books/:id/authors/title", async (req, res) => {
   const title = await db.getBook(req.params.id);
-  res.json(title);
+  res.json(title.rows);
 });
 
 app.get("/books/:id/authors/:id", async (req, res) => {
   const author = await db.getAuthor(req.params.id);
-  res.json(author);
+  res.json(author.rows);
 });
 
 app.get("/books/:id/authors/:id/titles", async (req, res) => {
   const books = await db.getAuthorTitles(req.params.id);
-  res.json(books);
+  res.json(books.rows);
 });
 
 app.post("/books/:id/authors/status", async (req, res) => {
   const status = await db.updateStatus(req.body.status, req.body.id);
-  res.send(status);
+  res.send(status.rows);
 });
 
 app.listen(port, () => console.log(`listening on port ${port}!`));
