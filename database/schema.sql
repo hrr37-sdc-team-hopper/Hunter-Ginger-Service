@@ -2,9 +2,10 @@ DROP DATABASE IF EXISTS BookShelf;
 
 CREATE DATABASE BookShelf;
 
-\c BookShelf;
+-- \c BookShelf;
 
-CREATE TABLE books(
+CREATE TABLE books
+(
     id SERIAL PRIMARY KEY,
     title varchar(100),
     description varchar(1000),
@@ -14,10 +15,14 @@ CREATE TABLE books(
     status varchar(100)
 );
 
-CREATE TABLE authors (
+CREATE TABLE authors
+(
     id SERIAL PRIMARY KEY,
     name varchar(100),
     details varchar(8000),
     profile_pic varchar(1000),
     followers int NOT NULL
 );
+
+
+CREATE INDEX author_index ON books (author_id);
