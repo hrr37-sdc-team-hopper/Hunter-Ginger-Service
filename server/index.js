@@ -33,4 +33,11 @@ app.post("/books/:id/authors/status", async (req, res) => {
   res.send(status.rows);
 });
 
+// app.post("/books/:id/authors/status", (req, res) => {
+//   //res.status(200);
+//   //console.log(req.body);
+//   //console.log(req);
+//   db.updateStatus(req.body.status, req.body.id);
+// });
+
 app.listen(port, () => console.log(`listening on port ${port}!`));
