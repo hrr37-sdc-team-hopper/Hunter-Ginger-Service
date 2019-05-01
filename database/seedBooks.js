@@ -10,7 +10,7 @@ stream.write("title,description,author_id,published_year,cover,status\n");
 
 function makeBooks(writer, callback) {
   console.time("timing seed");
-  var i = 10000000;
+  var i = 10;
   (function write() {
     var ok = true;
     while (i > 0 && ok) {

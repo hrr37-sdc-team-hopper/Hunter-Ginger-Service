@@ -1,16 +1,26 @@
-const mysql = require("mysql");
+const { Pool, Client } = require("pg");
 const config = require("./config");
+const pool = new Pool({
+  user: config.user,
+  host: config.host,
+  database: config.database,
+  password: config.password,
+  port: config.port
+});
 
-const connection = mysql.createConnection(config);
+//const mysql = require("mysql");
+//const config = require("./config");
 
-connection.connect(err => {
+//const pool = mysql.createpool(config);
+
+pool.connect(err => {
   if (err) throw err;
   console.log("connected");
 });
 
 const search = (search, values) =>
   new Promise((resolve, reject) => {
-    connection.query(search, values, (err, insert) => {
+    pool.query(search, values, (err, insert) => {
       if (err) return reject(err);
       resolve(insert);
     });
@@ -18,7 +28,7 @@ const search = (search, values) =>
 
 const addBook = value =>
   search(
-    "INSERT INTO books (title, description, author_id, published_year, cover, status) VALUES (?, ?, ?, ?, ?, ?)",
+    "INSERT INTO books (title, description, author_id, published_year, cover, status) VALUES ($1, $2, $3, $4, $5, $6)",
     [
       value.title,
       value.description,
@@ -31,7 +41,7 @@ const addBook = value =>
 
 const addAuthor = value =>
   search(
-    "INSERT INTO authors (name, details, profile_pic, followers) VALUES (?, ?, ?, ?)",
+    "INSERT INTO authors (name, details, profile_pic, followers) VALUES ($1, $2, $3, $4)",
     [value.name, value.details, value.profile_pic, value.followers]
   );
 
@@ -43,10 +53,10 @@ const getAuthorTitles = id =>
   search(`SELECT * FROM books WHERE author_id =${id}`);
 
 const updateStatus = (status, id) =>
-  search(`UPDATE books SET ? WHERE ?`, [{ status: status }, { id: id }]);
+  search(`UPDATE books SET status = $1 WHERE id = $2`, [status, id]);
 
 const close = () => {
-  connection.end();
+  pool.end();
 };
 
 module.exports = {
